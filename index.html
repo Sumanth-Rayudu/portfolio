@@ -115,6 +115,33 @@ footer p{max-width:760px; margin:0 auto; color:var(--ink-soft); font-size:12.5px
 .chip{transition:transform 0.15s ease, box-shadow 0.15s ease;}
 .chip:hover{transform:translateY(-2px);}
 
+/* pitch reel */
+.reel-stage{position:relative; background:#0B1310; border:1px solid var(--line); border-radius:8px; overflow:hidden; aspect-ratio:16/9; max-width:100%;}
+.reel-stage canvas{display:block; width:100%; height:100%; cursor:pointer; outline:none;}
+.reel-stage canvas:focus-visible{box-shadow:inset 0 0 0 3px var(--copper);}
+.reel-stage:fullscreen{aspect-ratio:auto; border:0; border-radius:0; width:100%; height:100%;}
+.reel-stage:fullscreen canvas{object-fit:contain;}
+.reel-badge{position:absolute; left:12px; top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:#A9B8AD; background:rgba(11,19,16,.72); border:1px solid rgba(169,184,173,.25); padding:3px 8px; border-radius:4px; pointer-events:none;}
+.reel-bigplay{position:absolute; inset:0; margin:auto; width:72px; height:72px; border-radius:50%; border:0; background:var(--copper); color:#FFF7F0; cursor:pointer; display:grid; place-items:center; box-shadow:0 10px 36px rgba(0,0,0,.45); transition:transform .15s ease;}
+.reel-bigplay:hover{transform:scale(1.05);}
+.reel-bigplay:focus-visible{outline:3px solid #fff; outline-offset:3px;}
+.reel-bigplay svg{width:30px; height:30px; fill:currentColor;}
+.reel-bigplay[hidden]{display:none;}
+.reel-bar{display:flex; align-items:center; gap:10px; margin-top:12px; flex-wrap:wrap;}
+.reel-btn{font-family:var(--mono); font-size:13px; padding:7px 12px; border:1px solid var(--line); border-radius:5px; background:var(--bg-card); color:var(--ink); cursor:pointer; display:inline-flex; align-items:center; gap:7px; white-space:nowrap;}
+.reel-btn:hover{border-color:var(--copper); color:var(--copper);}
+.reel-btn:focus-visible{outline:2px solid var(--copper); outline-offset:2px;}
+.reel-btn svg{width:13px; height:13px; fill:currentColor;}
+.reel-time{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); font-variant-numeric:tabular-nums; min-width:92px; text-align:center;}
+#reelScrub{flex:1; min-width:120px; accent-color:var(--copper); height:4px; cursor:pointer;}
+.reel-scenes{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px;}
+.reel-scene{font-family:var(--mono); font-size:11.5px; padding:4px 9px; border:1px solid var(--line); border-radius:999px; background:var(--bg-card); color:var(--ink-soft); cursor:pointer; display:inline-flex; gap:6px; align-items:center;}
+.reel-scene b{font-weight:500; color:var(--trace); font-variant-numeric:tabular-nums;}
+.reel-scene.active{border-color:var(--copper); color:var(--copper);}
+.reel-scene.active b{color:var(--copper);}
+.reel-scene:focus-visible{outline:2px solid var(--copper); outline-offset:2px;}
+.reel-caption{margin:14px 0 0; font-size:13.5px; color:var(--ink-soft); max-width:64ch;}
+
 @media (prefers-reduced-motion: reduce){
   .eyebrow .dot, .hero-inner .eyebrow, .hero-inner h1, .hero-inner .role, .hero-inner .linkrow,
   .circuit-bg path, .project::before, .chip{
@@ -147,10 +174,30 @@ footer p{max-width:760px; margin:0 auto; color:var(--ink-soft); font-size:12.5px
       <a href="https://www.linkedin.com/in/sumanth-rayudu">LinkedIn ↗</a>
       <a href="mailto:sumanthrayudu33@gmail.com">Email</a>
       <a href="https://github.com/Sumanth-Rayudu">GitHub ↗</a>
+      <a href="#reel">Pitch reel ▶</a>
       <a href="#projects">Projects ↓</a>
     </div>
   </div>
 </header>
+
+<section class="reel" id="reel">
+  <div class="inner">
+    <h2>Pitch reel &middot; 61 s</h2>
+    <div class="reel-stage" id="reelStage">
+      <canvas id="reelCanvas" width="1920" height="1080" tabindex="0" aria-label="Pitch reel: Sumanth Rayudu, ECE Engineer and Certified Scrum Master. Scenes: power-on, two worlds, Smart Birdhouse, RF sensor, Smart Horticulture CAN bus, toolkit, looking for, get in touch. Press Space to play or pause."></canvas>
+      <span class="reel-badge" id="reelBadge">01:01 &middot; PITCH REEL</span>
+      <button class="reel-bigplay" id="reelBigPlay" type="button" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+    </div>
+    <div class="reel-bar">
+      <button class="reel-btn" id="reelPlay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span>Play</span></button>
+      <span class="reel-time" id="reelTime">00:00 / 01:01</span>
+      <input type="range" id="reelScrub" min="0" max="1000" value="0" step="1" aria-label="Seek">
+      <button class="reel-btn" id="reelFs" type="button" title="Fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg>Fullscreen</button>
+    </div>
+    <div class="reel-scenes" id="reelScenes" aria-label="Scenes"></div>
+    <p class="reel-caption">About a minute, no audio: everything I'd say is on screen. Rendered live in the browser, so it plays sharp at any size.</p>
+  </div>
+</section>
 
 <section class="about">
   <div class="inner">
@@ -184,6 +231,16 @@ footer p{max-width:760px; margin:0 auto; color:var(--ink-soft); font-size:12.5px
           <span class="chip">L-band Sensing</span>
         </div>
       </div>
+      <div class="project">
+        <div class="kicker">Embedded / Networked Control</div>
+        <h3>Smart Horticulture Monitoring System</h3>
+        <p>Two Arduinos, each fitted with an MCP2515 CAN controller, exchange sensor readings and control signals over a shared two-wire CAN bus instead of direct wiring or wireless. The sensor node publishes soil moisture, temperature, humidity and light on their own CAN IDs (0x100–0x103); the actuator node decodes by ID, applies threshold logic such as soil moisture below 30% switching the pump on, and acknowledges actions back on 0x200/0x201. The design is documented as a shared contract: the CAN ID table, 2-byte fixed-point payload encoding, 120 Ω termination at both bus ends, plus heartbeat frames, sensor-offline timeouts and MCP2515 bus-off recovery.</p>
+        <div class="chiprow">
+          <span class="chip">Arduino</span>
+          <span class="chip">MCP2515 / SPI</span>
+          <span class="chip copper">CAN Bus</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -194,7 +251,7 @@ footer p{max-width:760px; margin:0 auto; color:var(--ink-soft); font-size:12.5px
     <div class="skillsgrid">
       <div class="skillcard"><div class="k">Core</div><div class="v">Electronics &amp; Communication Engineering (ECE)</div></div>
       <div class="skillcard"><div class="k">Delivery</div><div class="v">Certified Scrum Master, ~2 years agile delivery</div></div>
-      <div class="skillcard"><div class="k">Embedded</div><div class="v">ESP32, sensor/camera integration, 3D-printed enclosures</div></div>
+      <div class="skillcard"><div class="k">Embedded</div><div class="v">ESP32, Arduino, CAN bus (MCP2515), sensor/camera integration, 3D-printed enclosures</div></div>
       <div class="skillcard"><div class="k">Software</div><div class="v">Python (CFD, quant modelling)</div></div>
     </div>
   </div>
@@ -217,6 +274,788 @@ footer p{max-width:760px; margin:0 auto; color:var(--ink-soft); font-size:12.5px
 <footer>
   <p>Sumanth Rayudu &middot; built with a static page, hosted on GitHub Pages.</p>
 </footer>
+
+<script>
+(() => {
+'use strict';
+const W = 1920, H = 1080;
+
+// ---------- Copy: edit wording here ----------
+const COPY = {
+  name: 'SUMANTH RAYUDU',
+  nameCase: 'Sumanth Rayudu',
+  place: 'BENGALURU, INDIA',
+  role: 'Electronics & Communication Engineer  ·  Certified Scrum Master',
+  roleShort: 'ECE Engineer  ·  Certified Scrum Master',
+  silk: 'SR-01  ·  REV A  ·  2026',
+  h1a: 'Two years running agile delivery.',
+  h1b: 'Never stopped building hardware.',
+  bridge: 'I bring structured delivery to hardware teams.',
+  cards: ['Schematic review', 'Firmware v0.3', 'PCB bring-up', 'EMC pre-scan', 'Sprint demo'],
+  p1: { kicker: 'EMBEDDED / HARDWARE', title: 'Smart Birdhouse',
+        body: ['Concealed ESP32-CAM in a modular,', '3D-printed PETG shell.', 'Ventilation validated with a Python CFD', 'solver written from scratch, no canned package.'],
+        chips: [['ESP32-CAM'], ['3D printing · PETG'], ['Python CFD', 'copper']] },
+  p2: { kicker: 'RF / MICROWAVE DESIGN', title: 'RF Sensor at 1.5 GHz',
+        body: ['Full-wave electromagnetic simulation', 'in Ansys HFSS.', 'Resonance modelled, S11 tuned and the', 'frequency response validated before fabrication.'],
+        chips: [['Ansys HFSS'], ['Full-wave EM'], ['L-band sensing', 'copper']] },
+  p3: { kicker: 'EMBEDDED / NETWORKED CONTROL', title: 'Smart Horticulture',
+        body: ['Two Arduinos with MCP2515 controllers exchange', 'readings over a shared two-wire CAN bus.', 'Sensor node publishes on IDs 0x100–0x103; the', 'actuator node decodes, acts and acknowledges.'],
+        chips: [['Arduino'], ['MCP2515 · SPI'], ['CAN bus', 'copper']] },
+  toolkitHead: 'Hardware hands. Delivery discipline.',
+  toolkit: [['ESP32', 'MCU · WI-FI / BLE'], ['Sensors & cameras', 'INTEGRATION'], ['Python', 'CFD · MODELLING'], ['Ansys HFSS', 'RF SIMULATION'],
+            ['3D printing', 'PETG · ENCLOSURES'], ['Scrum Master', 'CERTIFIED · ~2 YRS'], ['Agile delivery', 'TECHNICAL TEAMS'], ['CAN bus', 'MCP2515 · ARDUINO']],
+  toolkitCaption: 'Embedded builds on the side, agile delivery by day. The same structured approach to both.',
+  lookingKicker: 'LOOKING FOR',
+  looking: ['Embedded and hardware roles', 'where technical grounding', 'and delivery experience both matter.'],
+  lookingSub: 'A technical role on a hardware team, or a shift into core embedded engineering.',
+  talk: 'Let’s talk.',
+  contacts: [['GH', 'github.com/Sumanth-Rayudu'], ['in', 'linkedin.com/in/sumanth-rayudu-939784160'], ['@', 'sumanthrayudu33@gmail.com']],
+  event: 'electronica India  ·  productronica India 2026  ·  BIEC, Bengaluru',
+};
+
+// ---------- Palette (single-theme dark board, matches the portfolio) ----------
+const C = { board:'#0B1310', card:'#141F19', line:'#2B3A31', line2:'#1E2B24', ink:'#E9EFE9', soft:'#A9B8AD', dim:'#6E7F74',
+            copper:'#E08A4D', copperDeep:'#AD5A28', silicon:'#8FA9E8', siliconSoft:'#1C263F', copperSoft:'#3A2A1C', trace:'#4C6B58', traceHi:'#7FA58D', good:'#7CC48A' };
+const MONO = '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
+const SANS = '"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif';
+const mono = (w, s) => `${w} ${s}px ${MONO}`;
+const sans = (w, s) => `${w} ${s}px ${SANS}`;
+
+// ---------- Math helpers ----------
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, p) => a + (b - a) * p;
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const E = {
+  out: p => 1 - Math.pow(1 - p, 3),
+  inout: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  expo: p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  back: p => { const c = 1.70158, d = c + 1; return 1 + d * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); },
+  smooth: p => p * p * (3 - 2 * p),
+};
+function rng(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+
+// ---------- Drawing helpers ----------
+const canLS = (() => { const c = document.createElement('canvas').getContext('2d'); return 'letterSpacing' in c; })();
+function text(ctx, str, x, y, o = {}) {
+  if (o.alpha !== undefined && o.alpha <= 0) return 0;
+  ctx.save();
+  ctx.font = o.font || sans(400, 32);
+  ctx.fillStyle = o.color || C.ink;
+  ctx.textAlign = o.align || 'left';
+  ctx.textBaseline = o.base || 'alphabetic';
+  if (canLS) ctx.letterSpacing = o.ls || '0px';
+  if (o.alpha !== undefined) ctx.globalAlpha *= o.alpha;
+  if (o.glow) { ctx.shadowColor = o.glow; ctx.shadowBlur = 18; }
+  ctx.fillText(str, x, y);
+  const w = ctx.measureText(str).width;
+  ctx.restore();
+  return w;
+}
+function measure(ctx, str, font, ls) {
+  ctx.save(); ctx.font = font; if (canLS) ctx.letterSpacing = ls || '0px';
+  const w = ctx.measureText(str).width; ctx.restore(); return w;
+}
+function rr(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) { ctx.roundRect(x, y, w, h, r); return; }
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function pathLen(pts) { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return L; }
+function pointAt(pts, frac) {
+  let rem = clamp(frac) * pathLen(pts);
+  for (let i = 1; i < pts.length; i++) {
+    const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    if (rem <= d) { const r = d ? rem / d : 0; return [lerp(pts[i - 1][0], pts[i][0], r), lerp(pts[i - 1][1], pts[i][1], r)]; }
+    rem -= d;
+  }
+  return pts[pts.length - 1];
+}
+function tracePath(ctx, pts, frac) {
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  let rem = clamp(frac) * pathLen(pts);
+  for (let i = 1; i < pts.length; i++) {
+    const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    if (rem >= d) { ctx.lineTo(pts[i][0], pts[i][1]); rem -= d; }
+    else { const r = d ? rem / d : 0; ctx.lineTo(lerp(pts[i - 1][0], pts[i][0], r), lerp(pts[i - 1][1], pts[i][1], r)); break; }
+  }
+}
+function trace(ctx, pts, frac, o = {}) {
+  if (frac <= 0) return;
+  ctx.save();
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = o.color || C.copper;
+  ctx.lineWidth = o.width || 5;
+  if (o.alpha !== undefined) ctx.globalAlpha *= o.alpha;
+  if (o.glow) { ctx.shadowColor = o.color || C.copper; ctx.shadowBlur = o.glow; }
+  if (o.dash) { ctx.setLineDash(o.dash); ctx.lineDashOffset = o.dashOffset || 0; }
+  tracePath(ctx, pts, frac); ctx.stroke();
+  ctx.restore();
+}
+function copperTrace(ctx, pts, frac) {
+  trace(ctx, pts, frac, { width: 13, alpha: .16 });
+  trace(ctx, pts, frac, { width: 5 });
+}
+function pad(ctx, x, y, r = 10, o = {}) {
+  ctx.save();
+  if (o.alpha !== undefined) ctx.globalAlpha *= o.alpha;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = o.fill || C.board; ctx.fill();
+  ctx.lineWidth = o.width || 3; ctx.strokeStyle = o.color || C.copper; ctx.stroke();
+  if (o.dot) { ctx.beginPath(); ctx.arc(x, y, r * .38, 0, Math.PI * 2); ctx.fillStyle = o.color || C.copper; ctx.fill(); }
+  ctx.restore();
+}
+function pulseDot(ctx, x, y, t, col = C.copper) {
+  const k = (Math.sin(t * 3.2) + 1) / 2;
+  ctx.save();
+  ctx.beginPath(); ctx.arc(x, y, 7 + 10 * k, 0, Math.PI * 2);
+  ctx.fillStyle = col; ctx.globalAlpha *= .32 * (1 - k); ctx.fill();
+  ctx.restore();
+  ctx.save(); ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fillStyle = col; ctx.shadowColor = col; ctx.shadowBlur = 12; ctx.fill(); ctx.restore();
+}
+function chipFrame(ctx, x, y, w, h, a) {
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a;
+  const pinL = 34, pinT = 12;
+  ctx.fillStyle = C.copperDeep;
+  for (let py = y + 60; py <= y + h - 60 + 0.1; py += 60) { ctx.fillRect(x - pinL, py - pinT / 2, pinL, pinT); ctx.fillRect(x + w, py - pinT / 2, pinL, pinT); }
+  for (let px = x + 100; px <= x + w - 100 + 0.1; px += 100) { ctx.fillRect(px - pinT / 2, y - pinL, pinT, pinL); ctx.fillRect(px - pinT / 2, y + h, pinT, pinL); }
+  rr(ctx, x, y, w, h, 18); ctx.fillStyle = 'rgba(20,31,25,0.94)'; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = C.line; ctx.stroke();
+  rr(ctx, x + 10, y + 10, w - 20, h - 20, 12); ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(43,58,49,0.7)'; ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + 36, y + 36, 7, 0, Math.PI * 2); ctx.fillStyle = C.trace; ctx.fill();
+  ctx.restore();
+}
+function panel(ctx, x, y, w, h, title, status) {
+  rr(ctx, x, y, w, h, 14); ctx.fillStyle = C.card; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = C.line; ctx.stroke();
+  text(ctx, title, x + 26, y + 46, { font: mono(600, 22), color: C.copper, ls: '0.16em' });
+  if (status) text(ctx, status, x + w - 26, y + 46, { font: mono(400, 18), color: C.dim, align: 'right' });
+}
+function chip(ctx, label, x, y, p, variant) {
+  if (p <= 0) return 0;
+  const f = mono(500, 22), w = measure(ctx, label, f) + 34, h = 46;
+  ctx.save();
+  const s = .82 + .18 * E.back(p);
+  ctx.globalAlpha *= clamp(p * 1.6);
+  ctx.translate(x + w / 2, y + h / 2); ctx.scale(s, s); ctx.translate(-(x + w / 2), -(y + h / 2));
+  rr(ctx, x, y, w, h, 8); ctx.fillStyle = variant === 'copper' ? C.copperSoft : C.siliconSoft; ctx.fill();
+  text(ctx, label, x + 17, y + 31, { font: f, color: variant === 'copper' ? C.copper : C.silicon });
+  ctx.restore();
+  return w + 12;
+}
+function callout(ctx, pts, label, a, align = 'left') {
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a;
+  trace(ctx, pts, 1, { color: C.dim, width: 1.5 });
+  ctx.beginPath(); ctx.arc(pts[0][0], pts[0][1], 4, 0, Math.PI * 2); ctx.fillStyle = C.copper; ctx.fill();
+  const end = pts[pts.length - 1];
+  text(ctx, label, end[0] + (align === 'left' ? 10 : -10), end[1], { font: mono(400, 20), color: C.soft, align, base: 'middle' });
+  ctx.restore();
+}
+function bezier(p0, p1, p2, p3, s) {
+  const u = 1 - s;
+  return [u * u * u * p0[0] + 3 * u * u * s * p1[0] + 3 * u * s * s * p2[0] + s * s * s * p3[0],
+          u * u * u * p0[1] + 3 * u * u * s * p1[1] + 3 * u * s * s * p2[1] + s * s * s * p3[1]];
+}
+function mix(c1, c2, p) { return `rgb(${Math.round(lerp(c1[0], c2[0], p))},${Math.round(lerp(c1[1], c2[1], p))},${Math.round(lerp(c1[2], c2[2], p))})`; }
+const SIL = [143, 169, 232], COP = [224, 138, 77];
+
+// ---------- Background caches ----------
+const bgCache = document.createElement('canvas'); bgCache.width = W; bgCache.height = H;
+{
+  const g = bgCache.getContext('2d');
+  g.fillStyle = C.board; g.fillRect(0, 0, W, H);
+  const rg = g.createRadialGradient(960, 520, 80, 960, 520, 1250);
+  rg.addColorStop(0, 'rgba(24,38,30,0.95)'); rg.addColorStop(1, 'rgba(11,19,16,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, W, H);
+  g.fillStyle = 'rgba(233,239,233,0.055)';
+  for (let x = 20; x < W; x += 40) for (let y = 20; y < H; y += 40) g.fillRect(x - 1, y - 1, 2, 2);
+}
+const vigCache = document.createElement('canvas'); vigCache.width = W; vigCache.height = H;
+{
+  const g = vigCache.getContext('2d');
+  const rg = g.createRadialGradient(960, 540, 500, 960, 540, 1250);
+  rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,0.55)');
+  g.fillStyle = rg; g.fillRect(0, 0, W, H);
+}
+const BG_TRACES = [
+  [[-40, 120], [400, 120], [520, 240], [1500, 240], [1620, 120], [1960, 120]],
+  [[-40, 980], [300, 980], [420, 860], [1300, 860], [1420, 980], [1960, 980]],
+  [[120, -40], [120, 300], [60, 360], [60, 1120]],
+  [[1860, -40], [1860, 700], [1800, 760], [1800, 1120]],
+];
+function drawBgTraces(g, t) {
+  for (let i = 0; i < BG_TRACES.length; i++) {
+    trace(g, BG_TRACES[i], 1, { color: C.trace, width: 2, alpha: .35, dash: [14, 18], dashOffset: -t * 60 * (i % 2 ? -1 : 1) });
+  }
+}
+
+// ---------- Scene 0: power-on ----------
+const F0 = { x: 360, y: 330, w: 1200, h: 420 };
+const TR0 = [
+  [[-40, 150], [120, 150], [240, 270], [240, 390], [326, 390]],
+  [[-40, 510], [326, 510]],
+  [[-40, 930], [140, 930], [240, 830], [240, 630], [326, 630]],
+  [[1960, 120], [1780, 120], [1700, 200], [1700, 450], [1594, 450]],
+  [[1960, 570], [1594, 570]],
+  [[1960, 980], [1760, 980], [1680, 900], [1680, 690], [1594, 690]],
+  [[760, -40], [760, 196], [860, 296]],
+  [[1160, 1120], [1160, 884], [1060, 784]],
+];
+function routeIn(ctx, traces, p) {
+  traces.forEach((pts, i) => {
+    const f = clamp(p * 1.3 - i * .04);
+    copperTrace(ctx, pts, f);
+    if (pts.length > 2) {
+      const first = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
+      if (f * pathLen(pts) >= first) pad(ctx, pts[1][0], pts[1][1], 8, { dot: true });
+    }
+    if (f >= 1) { const e = pts[pts.length - 1]; pad(ctx, e[0], e[1], 6, { fill: C.copper, width: 2 }); }
+  });
+}
+function s0(ctx, lt) {
+  routeIn(ctx, TR0, E.out(span(lt, .1, 2.1)));
+  chipFrame(ctx, F0.x, F0.y, F0.w, F0.h, E.out(span(lt, 1.4, 2.2)));
+  // PWR LED
+  const la = E.out(span(lt, 1.6, 2.0));
+  if (la > 0) { ctx.save(); ctx.globalAlpha *= la; pulseDot(ctx, F0.x + 60, F0.y - 74, lt); text(ctx, 'PWR', F0.x + 80, F0.y - 66, { font: mono(500, 16), color: C.dim, ls: '0.14em' }); ctx.restore(); }
+  // eyebrow
+  const ea = E.out(span(lt, 1.9, 2.5));
+  if (ea > 0) {
+    const f = mono(500, 24), w = measure(ctx, COPY.place, f, '0.18em'), x0 = 960 - (w + 26) / 2;
+    ctx.save(); ctx.globalAlpha *= ea;
+    pulseDot(ctx, x0 + 6, F0.y + 108, lt);
+    text(ctx, COPY.place, x0 + 26, F0.y + 116, { font: f, color: C.soft, ls: '0.18em' });
+    ctx.restore();
+  }
+  // name typewriter
+  const tp = span(lt, 2.2, 3.5), f = mono(600, 116);
+  const n = Math.floor(tp * COPY.name.length), shown = COPY.name.slice(0, n);
+  const fullW = measure(ctx, COPY.name, f, '0.02em'), x0 = 960 - fullW / 2, base = F0.y + 265;
+  if (shown) text(ctx, shown, x0, base, { font: f, ls: '0.02em' });
+  if (lt > 2.2 && lt < 5.2 && (tp < 1 || Math.floor(lt * 2.5) % 2 === 0)) {
+    const w = shown ? measure(ctx, shown, f, '0.02em') : 0;
+    ctx.fillStyle = C.copper; ctx.fillRect(x0 + w + 8, base - 86, 10, 100);
+  }
+  text(ctx, COPY.role, 960, F0.y + 340, { font: sans(400, 34), color: C.soft, align: 'center', alpha: E.out(span(lt, 3.6, 4.3)) });
+  text(ctx, COPY.silk, F0.x + F0.w - 30, F0.y + F0.h - 22, { font: mono(400, 18), color: C.dim, align: 'right', ls: '0.08em', alpha: E.out(span(lt, 2.4, 3.0)) });
+}
+
+// ---------- Scene 1: two worlds ----------
+const CARD_T = [[.8, 2.2], [1.4, 3.6], [2.0, 4.4], [3.0, 5.2], [4.0, 6.0]];
+function s1(ctx, lt) {
+  text(ctx, COPY.h1a, 960, 150, { font: sans(500, 50), color: C.soft, align: 'center', alpha: E.out(span(lt, .2, .9)) });
+  text(ctx, COPY.h1b, 960, 216, { font: sans(500, 50), color: C.ink, align: 'center', alpha: E.out(span(lt, .9, 1.6)) });
+  const py = 300, ph = 520, lx = 160, lw = 740, rx = 1020, rw = 740;
+  // left: oscilloscope
+  const pa = E.out(span(lt, .4, 1.2));
+  if (pa > 0) {
+    ctx.save(); ctx.globalAlpha *= pa; ctx.translate((1 - pa) * -40, 0);
+    panel(ctx, lx, py, lw, ph, 'HARDWARE', '● RUN   TRIG’D');
+    const ix = lx + 24, iy = py + 76, iw = lw - 48, ih = ph - 110;
+    ctx.fillStyle = '#0C1511'; ctx.fillRect(ix, iy, iw, ih);
+    ctx.strokeStyle = C.line2; ctx.lineWidth = 1;
+    for (let i = 1; i < 10; i++) { const x = ix + iw * i / 10; ctx.beginPath(); ctx.moveTo(x, iy); ctx.lineTo(x, iy + ih); ctx.stroke(); }
+    for (let i = 1; i < 8; i++) { const y = iy + ih * i / 8; ctx.beginPath(); ctx.moveTo(ix, y); ctx.lineTo(ix + iw, y); ctx.stroke(); }
+    ctx.strokeStyle = C.line; ctx.beginPath(); ctx.moveTo(ix + iw / 2, iy); ctx.lineTo(ix + iw / 2, iy + ih); ctx.moveTo(ix, iy + ih / 2); ctx.lineTo(ix + iw, iy + ih / 2); ctx.stroke();
+    const m = E.smooth(span(lt, 3.0, 5.2)), reveal = iw * E.out(span(lt, 1.0, 1.9)), cy = iy + ih / 2, amp = ih * .3;
+    ctx.save(); ctx.beginPath(); ctx.rect(ix, iy, iw, ih); ctx.clip();
+    ctx.beginPath();
+    for (let i = 0; i <= reveal; i += 3) {
+      const th = (i / 210) * Math.PI * 2 - lt * 5;
+      let sq = 0; for (const k of [1, 3, 5, 7, 9, 11]) sq += Math.sin(k * th) / k; sq *= 4 / Math.PI;
+      const v = Math.sin(th) * (1 - m) + clamp(sq, -1, 1) * m, yy = cy - v * amp;
+      if (i === 0) ctx.moveTo(ix + i, yy); else ctx.lineTo(ix + i, yy);
+    }
+    ctx.strokeStyle = C.copper; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.shadowColor = C.copper; ctx.shadowBlur = 14; ctx.stroke();
+    ctx.restore();
+    // trigger marker + labels
+    ctx.fillStyle = C.silicon; ctx.beginPath(); ctx.moveTo(ix + iw + 2, cy); ctx.lineTo(ix + iw + 14, cy - 8); ctx.lineTo(ix + iw + 14, cy + 8); ctx.closePath(); ctx.fill();
+    text(ctx, 'CH1   2 V/div   5 µs/div', ix, py + ph - 18, { font: mono(400, 17), color: C.dim, ls: '0.06em' });
+    text(ctx, m < .5 ? 'SINE' : 'SQUARE', ix + iw, py + ph - 18, { font: mono(500, 17), color: C.silicon, align: 'right', ls: '0.1em' });
+    ctx.restore();
+  }
+  // right: sprint board
+  const ra = E.out(span(lt, .6, 1.4));
+  if (ra > 0) {
+    ctx.save(); ctx.globalAlpha *= ra; ctx.translate((1 - ra) * 40, 0);
+    panel(ctx, rx, py, rw, ph, 'DELIVERY', 'SPRINT BOARD');
+    const colW = (rw - 48) / 3, cx0 = rx + 24;
+    ['TO DO', 'IN PROGRESS', 'DONE'].forEach((h, i) => {
+      text(ctx, h, cx0 + i * colW + 8, py + 100, { font: mono(500, 16), color: C.dim, ls: '0.12em' });
+      ctx.strokeStyle = C.line2; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx0 + i * colW + 8, py + 114); ctx.lineTo(cx0 + (i + 1) * colW - 8, py + 114); ctx.stroke();
+    });
+    COPY.cards.forEach((label, i) => {
+      const [t1, t2] = CARD_T[i];
+      const c1 = E.inout(span(lt, t1, t1 + .55)), c2 = E.inout(span(lt, t2, t2 + .55));
+      const col = c1 + c2, x = cx0 + col * colW + 8, y = py + 136 + i * 76;
+      const moving = (c1 > 0 && c1 < 1) ? c1 : (c2 > 0 && c2 < 1) ? c2 : -1;
+      const lift = moving >= 0 ? Math.sin(Math.PI * moving) * 8 : 0;
+      const ap = E.out(span(lt, .7 + i * .12, 1.1 + i * .12));
+      if (ap <= 0) return;
+      ctx.save(); ctx.globalAlpha *= ap; ctx.translate(0, (1 - ap) * 14 - lift);
+      if (moving >= 0) { ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 8; }
+      rr(ctx, x, y, colW - 16, 60, 8); ctx.fillStyle = '#0F1913'; ctx.fill(); ctx.shadowColor = 'transparent';
+      ctx.lineWidth = 1.5; ctx.strokeStyle = col >= 2 ? C.trace : C.line; ctx.stroke();
+      ctx.fillStyle = col >= 2 ? C.good : C.copper; rr(ctx, x + 12, y + 24, 12, 12, 3); ctx.fill();
+      text(ctx, label, x + 34, y + 37, { font: sans(500, 21), color: col >= 2 ? C.soft : C.ink });
+      if (col >= 2) { ctx.strokeStyle = C.good; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(x + colW - 44, y + 31); ctx.lineTo(x + colW - 37, y + 38); ctx.lineTo(x + colW - 26, y + 24); ctx.stroke(); }
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+  // bridge
+  const bp = E.out(span(lt, 5.6, 6.3));
+  if (bp > 0) {
+    copperTrace(ctx, [[900, 560], [1020, 560]], bp);
+    if (bp > .5) { pad(ctx, 960, 560, 11, { dot: true }); pulseDot(ctx, 960, 560, lt); }
+  }
+  text(ctx, COPY.bridge, 960, 930, { font: sans(500, 44), color: C.ink, align: 'center', alpha: E.out(span(lt, 6.1, 6.9)) });
+}
+
+// ---------- Scene 2: Smart Birdhouse ----------
+const PARTS = (() => { const r = rng(7), a = []; for (let i = 0; i < 84; i++) a.push({ s0: r(), y0: 720 + Math.floor(r() * 3) * 30 + (r() - .5) * 14, rate: .2 + r() * .08, w: 1.5 + r() * 1.6 }); return a; })();
+function projectText(ctx, P, lt) {
+  const x = 1000;
+  text(ctx, P.kicker, x, 390, { font: mono(600, 24), color: C.copper, ls: '0.16em', alpha: E.out(span(lt, .3, .9)) });
+  const ta = E.out(span(lt, .6, 1.3));
+  if (ta > 0) { ctx.save(); ctx.translate(0, (1 - ta) * 18); text(ctx, P.title, x, 478, { font: mono(600, 72), color: C.ink, alpha: ta }); ctx.restore(); }
+  const ys = [548, 592, 660, 704], ts = [1.0, 1.15, 1.5, 1.65];
+  P.body.forEach((line, i) => text(ctx, line, x, ys[i], { font: sans(400, 32), color: C.soft, alpha: E.out(span(lt, ts[i], ts[i] + .6)) }));
+  let cx = x; P.chips.forEach((c, i) => { cx += chip(ctx, c[0], cx, 780, span(lt, 2.0 + i * .18, 2.5 + i * .18), c[1]); });
+}
+function s2(ctx, lt) {
+  const draw = E.out(span(lt, .2, 2.4));
+  // airflow particles (inside first, so outlines sit on top)
+  const fa = E.out(span(lt, 1.6, 2.6));
+  if (fa > 0) {
+    ctx.save(); ctx.globalAlpha *= fa; ctx.lineCap = 'round';
+    for (const p of PARTS) {
+      const s = (p.s0 + lt * p.rate) % 1;
+      const P0 = [262, p.y0], P1 = [440, p.y0 - 40], P2 = [470, 430], P3 = [500, 292];
+      const a = bezier(P0, P1, P2, P3, s), b = bezier(P0, P1, P2, P3, Math.max(0, s - .014));
+      const sp = clamp(Math.hypot(a[0] - b[0], a[1] - b[1]) / 9);
+      const fade = Math.min(span(s, 0, .06), span(1 - s, 0, .08));
+      ctx.globalAlpha = fa * fade * .9;
+      ctx.strokeStyle = mix(SIL, COP, sp); ctx.lineWidth = p.w;
+      ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(a[0], a[1]); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  // birdhouse line art
+  ctx.save();
+  const body = [[300, 480], [300, 840], [700, 840], [700, 480]];
+  trace(ctx, body, span(draw, 0, .45), { color: C.soft, width: 3 });
+  trace(ctx, [[250, 490], [500, 290], [750, 490]], span(draw, .3, .7), { color: C.soft, width: 5 });
+  const ha = span(draw, .55, .8);
+  if (ha > 0) { ctx.beginPath(); ctx.arc(500, 600, 48, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ha); ctx.strokeStyle = C.soft; ctx.lineWidth = 3; ctx.stroke(); }
+  trace(ctx, [[470, 672], [530, 672]], span(draw, .75, .85), { color: C.soft, width: 4 });
+  // inlet vents
+  const va = span(draw, .6, .9);
+  if (va > 0) { ctx.fillStyle = C.copperDeep; ctx.globalAlpha *= va; [720, 750, 780].forEach(y => ctx.fillRect(292, y - 3, 18, 6)); ctx.globalAlpha /= va; }
+  // roof vent
+  const ra = span(draw, .8, 1);
+  if (ra > 0) { ctx.save(); ctx.globalAlpha *= ra; ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.arc(500, 322, 14, 0, Math.PI * 2); ctx.strokeStyle = C.copper; ctx.lineWidth = 2; ctx.stroke(); ctx.restore(); }
+  // concealed ESP32-CAM
+  const ca = E.out(span(lt, 1.3, 2.0));
+  if (ca > 0) {
+    ctx.save(); ctx.globalAlpha *= ca;
+    ctx.setLineDash([7, 6]); ctx.strokeStyle = C.silicon; ctx.lineWidth = 2; rr(ctx, 560, 530, 100, 80, 6); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(600, 570, 14, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(600, 570, 5, 0, Math.PI * 2); ctx.fillStyle = C.silicon; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(640, 540); ctx.lineTo(648, 548); ctx.lineTo(640, 556); ctx.lineTo(648, 564); ctx.stroke(); // antenna
+    ctx.setLineDash([4, 6]); ctx.globalAlpha *= .7;
+    ctx.beginPath(); ctx.moveTo(586, 570); ctx.lineTo(452, 536); ctx.moveTo(586, 570); ctx.lineTo(452, 664); ctx.stroke();
+    ctx.restore();
+  }
+  ctx.restore();
+  // callouts
+  callout(ctx, [[515, 322], [590, 262], [630, 262]], 'roof vent · outlet', E.out(span(lt, 2.2, 2.7)));
+  callout(ctx, [[660, 550], [720, 490], [750, 490]], 'ESP32-CAM · concealed', E.out(span(lt, 2.0, 2.5)));
+  callout(ctx, [[292, 780], [240, 832], [200, 832]], 'inlet vents', E.out(span(lt, 2.4, 2.9)), 'right');
+  text(ctx, 'PETG shell  ·  modular parts  ·  Bambu Lab A1', 500, 900, { font: mono(400, 20), color: C.dim, align: 'center', alpha: E.out(span(lt, 2.6, 3.1)) });
+  // legend
+  const la = E.out(span(lt, 2.8, 3.4));
+  if (la > 0) {
+    ctx.save(); ctx.globalAlpha *= la;
+    const g = ctx.createLinearGradient(140, 0, 320, 0); g.addColorStop(0, mix(SIL, COP, 0)); g.addColorStop(1, mix(SIL, COP, 1));
+    ctx.fillStyle = g; rr(ctx, 140, 960, 180, 8, 4); ctx.fill();
+    text(ctx, 'slow', 140, 992, { font: mono(400, 16), color: C.dim });
+    text(ctx, 'fast', 320, 992, { font: mono(400, 16), color: C.dim, align: 'right' });
+    text(ctx, 'airflow  ·  Python CFD  (illustrative)', 344, 969, { font: mono(400, 18), color: C.dim, ls: '0.04em' });
+    ctx.restore();
+  }
+  projectText(ctx, COPY.p1, lt);
+}
+
+// ---------- Scene 3: RF sensor ----------
+function s3(ctx, lt) {
+  const px = 220, py = 340, pw = 660, ph = 440;
+  const fx = f => px + (f - 1) * pw, fy = db => py + (-db / 30) * ph;
+  const S = f => -1.2 - 3 * Math.pow(f - 1.5, 2) - 27 * Math.exp(-Math.pow((f - 1.5) / .045, 2));
+  const pa = E.out(span(lt, .2, .9));
+  if (pa > 0) {
+    ctx.save(); ctx.globalAlpha *= pa;
+    ctx.fillStyle = C.card; rr(ctx, px - 90, py - 60, pw + 130, ph + 130, 14); ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.line; ctx.stroke();
+    ctx.strokeStyle = C.line2; ctx.lineWidth = 1;
+    for (let i = 0; i <= 5; i++) { const x = fx(1 + i * .2); ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x, py + ph); ctx.stroke(); text(ctx, (1 + i * .2).toFixed(1), x, py + ph + 32, { font: mono(400, 18), color: C.dim, align: 'center' }); }
+    for (let i = 0; i <= 3; i++) { const y = fy(-i * 10); ctx.beginPath(); ctx.moveTo(px, y); ctx.lineTo(px + pw, y); ctx.stroke(); text(ctx, String(-i * 10), px - 14, y + 6, { font: mono(400, 18), color: C.dim, align: 'right' }); }
+    text(ctx, 'GHz', px + pw + 16, py + ph + 32, { font: mono(400, 18), color: C.dim });
+    text(ctx, 'dB', px - 14, py - 14, { font: mono(400, 18), color: C.dim, align: 'right' });
+    text(ctx, 'S11  ·  RETURN LOSS', px, py - 26, { font: mono(600, 20), color: C.copper, ls: '0.14em' });
+    text(ctx, 'illustrative response', px + pw, py - 26, { font: mono(400, 17), color: C.dim, align: 'right' });
+    ctx.restore();
+  }
+  const cp = E.out(span(lt, .7, 3.2));
+  if (cp > 0) {
+    ctx.save(); ctx.beginPath();
+    const fmax = 1 + cp;
+    for (let f = 1; f <= fmax + 1e-9; f += .002) { const x = fx(f), y = fy(S(f)); if (f === 1) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+    ctx.strokeStyle = C.copper; ctx.lineWidth = 3.5; ctx.lineJoin = 'round'; ctx.shadowColor = C.copper; ctx.shadowBlur = 14; ctx.stroke();
+    ctx.restore();
+    const [ex, ey] = [fx(fmax), fy(S(fmax))];
+    if (cp < 1) { ctx.beginPath(); ctx.arc(ex, ey, 6, 0, Math.PI * 2); ctx.fillStyle = C.ink; ctx.fill(); }
+  }
+  const ma = E.out(span(lt, 2.0, 2.6));
+  if (ma > 0) {
+    const x0 = fx(1.5), y0 = fy(S(1.5));
+    trace(ctx, [[x0, py], [x0, py + ph]], 1, { color: C.copper, width: 1.5, alpha: .6 * ma, dash: [6, 6] });
+    text(ctx, 'f₀ ≈ 1.5 GHz', x0 + 14, py + 40, { font: mono(500, 22), color: C.copper, alpha: ma });
+    pad(ctx, x0, y0, 8, { dot: true, alpha: ma });
+    if (lt > 3) {
+      ctx.save(); ctx.strokeStyle = C.copper; ctx.lineWidth = 1.5;
+      for (let k = 0; k < 3; k++) { const r = ((lt - 3) * 45 + k * 32) % 96; ctx.globalAlpha = ma * .55 * (1 - r / 96); ctx.beginPath(); ctx.arc(x0, y0, 10 + r, 0, Math.PI * 2); ctx.stroke(); }
+      ctx.restore();
+    }
+  }
+  projectText(ctx, COPY.p2, lt);
+}
+
+// ---------- Scene 3b: Smart Horticulture (CAN bus) ----------
+const CAN_MSGS = [
+  { id: '0x100', tag: 'soil', t0: 1.8, dir: 1 },
+  { id: '0x101', tag: 'temp', t0: 2.5, dir: 1 },
+  { id: '0x102', tag: 'humidity', t0: 3.2, dir: 1 },
+  { id: '0x103', tag: 'light', t0: 3.9, dir: 1 },
+  { id: '0x200', tag: 'pump ack', t0: 5.2, dir: -1 },
+  { id: '0x201', tag: 'fan ack', t0: 5.9, dir: -1 },
+  { id: '0x7FF', tag: 'heartbeat', t0: 7.0, dir: 1 },
+];
+const CAN_TRAVEL = 1.2;
+function miniIC(ctx, x, y, s) {
+  ctx.save();
+  ctx.fillStyle = C.copperDeep;
+  for (let i = 0; i < 4; i++) { const o = s * (.2 + i * .2); ctx.fillRect(x - 8, y + o - 2, 8, 4); ctx.fillRect(x + s, y + o - 2, 8, 4); ctx.fillRect(x + o - 2, y - 8, 4, 8); ctx.fillRect(x + o - 2, y + s, 4, 8); }
+  rr(ctx, x, y, s, s, 6); ctx.fillStyle = '#0F1913'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = C.line; ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + 9, y + 9, 3, 0, Math.PI * 2); ctx.fillStyle = C.trace; ctx.fill();
+  ctx.restore();
+}
+function canNode(ctx, n, title, sub, a, flash, flashCol) {
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a; ctx.translate(0, (1 - a) * 20);
+  rr(ctx, n.x, n.y, n.w, n.h, 12); ctx.fillStyle = C.card; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = C.line; ctx.stroke();
+  if (flash > 0) { ctx.save(); ctx.globalAlpha *= flash; ctx.lineWidth = 3; ctx.strokeStyle = flashCol; ctx.shadowColor = flashCol; ctx.shadowBlur = 18; ctx.stroke(); ctx.restore(); }
+  text(ctx, title, n.x + 22, n.y + 38, { font: mono(600, 18), color: C.copper, ls: '0.14em' });
+  text(ctx, sub[0], n.x + 22, n.y + 76, { font: sans(500, 24), color: C.ink });
+  text(ctx, sub[1], n.x + 22, n.y + 108, { font: mono(400, 17), color: C.dim, ls: '0.06em' });
+  miniIC(ctx, n.x + n.w - 76, n.y + 58, 48);
+  ctx.restore();
+}
+function s3b(ctx, lt) {
+  const NA = { x: 190, y: 400, w: 240, h: 140 }, NB = { x: 610, y: 400, w: 240, h: 140 };
+  const yH = 640, yL = 672, bx0 = 130, bx1 = 910, ax = NA.x + NA.w / 2, bxc = NB.x + NB.w / 2;
+  let flashA = 0, flashB = 0;
+  for (const m of CAN_MSGS) { const arr = m.t0 + CAN_TRAVEL, f = 1 - span(lt, arr, arr + .45); if (lt >= arr && f > 0) { if (m.dir > 0) flashB = Math.max(flashB, f); else flashA = Math.max(flashA, f); } }
+  const actOn = [lt >= 4.6, lt >= 5.3, false, false];
+  const labelRow = (names, x0, on) => names.forEach((n, i) => {
+    const a = E.out(span(lt, 1.0 + i * .12, 1.5 + i * .12)); if (a <= 0) return;
+    const x = x0 + 30 + i * 60, lit = on && on[i], col = lit ? C.copper : C.trace;
+    ctx.save(); ctx.globalAlpha *= a;
+    text(ctx, n, x, 322, { font: mono(500, 16), color: lit ? C.copper : C.soft, align: 'center', ls: '0.08em' });
+    pad(ctx, x, 348, 6, { dot: !!lit, color: col, width: 2 });
+    ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, 354); ctx.lineTo(x, NA.y); ctx.stroke();
+    ctx.restore();
+  });
+  labelRow(['SOIL', 'TEMP', 'HUMID', 'LIGHT'], NA.x, null);
+  labelRow(['PUMP', 'FAN', 'RELAY', 'LCD'], NB.x, actOn);
+  canNode(ctx, NA, 'SENSOR NODE', ['Arduino #1', 'MCP2515 · SPI'], E.out(span(lt, .2, .9)), flashA, C.silicon);
+  canNode(ctx, NB, 'ACTUATOR NODE', ['Arduino #2', 'MCP2515 · SPI'], E.out(span(lt, .4, 1.1)), flashB, C.copper);
+  // bus
+  const bp = E.out(span(lt, .6, 1.5));
+  if (bp > 0) {
+    const mid = (bx0 + bx1) / 2, half = (bx1 - bx0) / 2 * bp;
+    trace(ctx, [[mid - half, yH], [mid + half, yH]], 1, { color: C.traceHi, width: 3 });
+    trace(ctx, [[mid - half, yL], [mid + half, yL]], 1, { color: C.traceHi, width: 3 });
+    text(ctx, 'CAN-H', 186, yH - 10, { font: mono(400, 15), color: C.dim, ls: '0.1em', alpha: bp });
+    text(ctx, 'CAN-L', 186, yL + 24, { font: mono(400, 15), color: C.dim, ls: '0.1em', alpha: bp });
+  }
+  const dp = E.out(span(lt, 1.0, 1.5));
+  if (dp > 0) [ax, bxc].forEach(x => {
+    ctx.save(); ctx.globalAlpha *= dp; ctx.strokeStyle = C.traceHi; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(x - 7, NA.y + NA.h); ctx.lineTo(x - 7, yH); ctx.moveTo(x + 7, NA.y + NA.h); ctx.lineTo(x + 7, yL); ctx.stroke();
+    pad(ctx, x - 7, yH, 5, { fill: C.traceHi, color: C.traceHi, width: 1 }); pad(ctx, x + 7, yL, 5, { fill: C.traceHi, color: C.traceHi, width: 1 });
+    ctx.restore();
+  });
+  const ra = E.out(span(lt, 1.3, 1.8));
+  if (ra > 0) [bx0 + 20, bx1 - 20].forEach(x => {
+    ctx.save(); ctx.globalAlpha *= ra; ctx.strokeStyle = C.copper; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x, yH); ctx.lineTo(x, yL); ctx.stroke();
+    rr(ctx, x - 7, yH + 6, 14, yL - yH - 12, 3); ctx.fillStyle = C.board; ctx.fill(); ctx.stroke();
+    text(ctx, '120 Ω', x, yL + 26, { font: mono(400, 15), color: C.dim, align: 'center' });
+    ctx.restore();
+  });
+  text(ctx, 'shared two-wire bus  ·  lower ID wins arbitration', 520, 714, { font: mono(400, 15), color: C.dim, align: 'center', ls: '0.04em', alpha: E.out(span(lt, 2.0, 2.6)) });
+  // frames on the bus
+  for (const m of CAN_MSGS) {
+    const p = span(lt, m.t0, m.t0 + CAN_TRAVEL); if (p <= 0 || p >= 1) continue;
+    const from = m.dir > 0 ? ax : bxc, to = m.dir > 0 ? bxc : ax;
+    const x = lerp(from, to, E.inout(p)), y = (yH + yL) / 2, a = Math.min(span(p, 0, .12), span(1 - p, 0, .12));
+    const col = m.dir > 0 ? C.copper : C.silicon, bg = m.dir > 0 ? C.copperSoft : C.siliconSoft;
+    ctx.save(); ctx.globalAlpha *= a;
+    rr(ctx, x - 44, y - 16, 88, 32, 6); ctx.fillStyle = bg; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = col; ctx.shadowColor = col; ctx.shadowBlur = 14; ctx.stroke(); ctx.shadowBlur = 0;
+    text(ctx, m.id, x, y + 6, { font: mono(600, 18), color: col, align: 'center' });
+    text(ctx, m.tag, x, y - 26, { font: mono(400, 15), color: C.soft, align: 'center' });
+    ctx.restore();
+  }
+  // threshold logic readout
+  const la = E.out(span(lt, 4.5, 5.0));
+  if (la > 0) {
+    ctx.save(); ctx.globalAlpha *= la;
+    rr(ctx, 190, 742, 660, 64, 10); ctx.fillStyle = '#0C1511'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = C.line; ctx.stroke();
+    let x = 214;
+    x += text(ctx, 'soil < 30 %', x, 783, { font: mono(500, 24), color: C.ink }) + 22;
+    x += text(ctx, '→', x, 783, { font: mono(500, 24), color: C.dim }) + 22;
+    x += text(ctx, 'PUMP ON', x, 783, { font: mono(600, 24), color: C.copper, ls: '0.06em' }) + 30;
+    text(ctx, 'ack 0x200 ✓', x, 783, { font: mono(500, 22), color: C.silicon, alpha: E.out(span(lt, 6.4, 6.9)) });
+    ctx.restore();
+  }
+  projectText(ctx, COPY.p3, lt);
+}
+
+// ---------- Scene 4: toolkit ----------
+function component(ctx, x, y, w, h, label, sub, a) {
+  ctx.save(); ctx.globalAlpha *= a;
+  ctx.fillStyle = C.copperDeep; ctx.fillRect(x - 12, y + h / 2 - 30, 16, 60); ctx.fillRect(x + w - 4, y + h / 2 - 30, 16, 60);
+  rr(ctx, x, y, w, h, 12); ctx.fillStyle = C.card; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = C.line; ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + 22, y + 22, 4, 0, Math.PI * 2); ctx.fillStyle = C.trace; ctx.fill();
+  text(ctx, label, x + 30, y + 80, { font: sans(500, 30), color: C.ink });
+  text(ctx, sub, x + 30, y + 120, { font: mono(400, 17), color: C.dim, ls: '0.1em' });
+  ctx.restore();
+}
+function s4(ctx, lt) {
+  text(ctx, 'TOOLKIT', 200, 200, { font: mono(600, 24), color: C.copper, ls: '0.16em', alpha: E.out(span(lt, .2, .7)) });
+  text(ctx, COPY.toolkitHead, 200, 274, { font: sans(500, 52), color: C.ink, alpha: E.out(span(lt, .4, 1.0)) });
+  const ox = 200, oy = 360, cw = 380, ch = 170, gap = 30;
+  const targets = COPY.toolkit.map((_, i) => [ox + (i % 4) * (cw + gap), oy + Math.floor(i / 4) * (ch + gap)]);
+  const T0 = .6, STEP = .42;
+  COPY.toolkit.forEach(([label, sub], i) => {
+    const ti = T0 + i * STEP, dp = E.out(span(lt, ti, ti + .38));
+    if (dp <= 0) return;
+    const [x, y] = targets[i], s = 1 + .14 * (1 - dp);
+    ctx.save(); ctx.translate(x + cw / 2, y + ch / 2 - (1 - dp) * 70); ctx.scale(s, s); ctx.translate(-(x + cw / 2), -(y + ch / 2));
+    component(ctx, x, y, cw, ch, label, sub, dp);
+    ctx.restore();
+  });
+  // pick-and-place nozzle
+  const lastT = T0 + (COPY.toolkit.length - 1) * STEP;
+  if (lt < lastT + .9 && lt > .1) {
+    let nx, ny;
+    const i = Math.min(COPY.toolkit.length - 1, Math.max(0, Math.ceil((lt - T0) / STEP)));
+    const ti = T0 + i * STEP;
+    const cur = targets[i], prev = i > 0 ? targets[i - 1] : [960, -60];
+    const mp = E.inout(span(lt, ti - STEP, ti - .06));
+    const tgt = [cur[0] + cw / 2, cur[1] + ch / 2], src = [prev[0] + cw / 2, prev[1] + ch / 2];
+    if (lt > lastT) { const ep = E.inout(span(lt, lastT, lastT + .9)); nx = lerp(tgt[0], 1700, ep); ny = lerp(tgt[1], -80, ep); }
+    else { nx = lerp(src[0], tgt[0], mp); ny = lerp(src[1], tgt[1], mp); }
+    ctx.save(); ctx.strokeStyle = C.copper; ctx.lineWidth = 2; ctx.globalAlpha *= .9;
+    ctx.beginPath(); ctx.arc(nx, ny, 30, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(nx - 44, ny); ctx.lineTo(nx - 18, ny); ctx.moveTo(nx + 18, ny); ctx.lineTo(nx + 44, ny); ctx.moveTo(nx, ny - 44); ctx.lineTo(nx, ny - 18); ctx.moveTo(nx, ny + 18); ctx.lineTo(nx, ny + 44); ctx.stroke();
+    ctx.beginPath(); ctx.arc(nx, ny, 3, 0, Math.PI * 2); ctx.fillStyle = C.copper; ctx.fill();
+    ctx.restore();
+  }
+  text(ctx, COPY.toolkitCaption, 200, 880, { font: sans(400, 32), color: C.soft, alpha: E.out(span(lt, 4.4, 5.1)) });
+}
+
+// ---------- Scene 5: looking for ----------
+const LOOK_PATH = [[200, 664], [1180, 664], [1250, 734], [1740, 734]];
+function s5(ctx, lt) {
+  text(ctx, COPY.lookingKicker, 200, 330, { font: mono(600, 24), color: C.copper, ls: '0.16em', alpha: E.out(span(lt, .1, .6)) });
+  const f = sans(500, 64), ys = [440, 530, 620], ts = [.3, .65, 1.0];
+  COPY.looking.forEach((line, i) => {
+    const p = E.out(span(lt, ts[i], ts[i] + .75));
+    if (p <= 0) return;
+    const w = measure(ctx, line, f) + 40;
+    ctx.save(); ctx.beginPath(); ctx.rect(180, ys[i] - 66, w * p, 90); ctx.clip();
+    text(ctx, line, 200, ys[i], { font: f, color: C.ink });
+    ctx.restore();
+    if (p < 1) { ctx.fillStyle = C.copper; ctx.fillRect(180 + w * p - 3, ys[i] - 58, 6, 74); }
+  });
+  const tp = E.out(span(lt, 1.8, 2.9));
+  copperTrace(ctx, LOOK_PATH, tp);
+  if (tp >= 1) {
+    pad(ctx, 1740, 734, 12, { dot: true }); pulseDot(ctx, 1740, 734, lt);
+    const q = ((lt - 2.9) * .45) % 1, [qx, qy] = pointAt(LOOK_PATH, q);
+    ctx.save(); ctx.beginPath(); ctx.arc(qx, qy, 7, 0, Math.PI * 2); ctx.fillStyle = C.ink; ctx.shadowColor = C.copper; ctx.shadowBlur = 20; ctx.fill(); ctx.restore();
+  }
+  text(ctx, COPY.lookingSub, 200, 850, { font: sans(400, 30), color: C.soft, alpha: E.out(span(lt, 2.6, 3.3)) });
+}
+
+// ---------- Scene 6: get in touch ----------
+const F6 = { x: 460, y: 230, w: 1000, h: 290 };
+const TR6 = [
+  [[-40, 350], [426, 350]],
+  [[-40, 900], [140, 900], [240, 800], [240, 410], [426, 410]],
+  [[1960, 290], [1494, 290]],
+  [[1960, 720], [1700, 720], [1600, 620], [1600, 410], [1494, 410]],
+  [[760, -40], [760, 96], [860, 196]],
+  [[1160, -40], [1160, 196]],
+];
+function s6(ctx, lt) {
+  routeIn(ctx, TR6, E.out(span(lt, 0, 1.3)));
+  chipFrame(ctx, F6.x, F6.y, F6.w, F6.h, E.out(span(lt, .6, 1.2)));
+  const ea = E.out(span(lt, 1.0, 1.5));
+  if (ea > 0) {
+    const f = mono(500, 20), w = measure(ctx, COPY.place, f, '0.18em'), x0 = 960 - (w + 24) / 2;
+    ctx.save(); ctx.globalAlpha *= ea; pulseDot(ctx, x0 + 5, F6.y + 62, lt); text(ctx, COPY.place, x0 + 24, F6.y + 69, { font: f, color: C.soft, ls: '0.18em' }); ctx.restore();
+  }
+  text(ctx, COPY.nameCase, 960, F6.y + 170, { font: mono(600, 76), color: C.ink, align: 'center', alpha: E.out(span(lt, 1.1, 1.7)) });
+  text(ctx, COPY.roleShort, 960, F6.y + 230, { font: sans(400, 30), color: C.soft, align: 'center', alpha: E.out(span(lt, 1.4, 2.0)) });
+  text(ctx, COPY.talk, 560, 600, { font: sans(500, 42), color: C.ink, alpha: E.out(span(lt, 1.7, 2.3)) });
+  COPY.contacts.forEach(([glyph, line], i) => {
+    const a = E.out(span(lt, 1.9 + i * .28, 2.5 + i * .28));
+    if (a <= 0) return;
+    const y = 660 + i * 84;
+    ctx.save(); ctx.globalAlpha *= a; ctx.translate(0, (1 - a) * 16);
+    rr(ctx, 560, y - 30, 50, 50, 10); ctx.fillStyle = C.card; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = C.line; ctx.stroke();
+    text(ctx, glyph, 585, y + 3, { font: mono(600, 21), color: C.copper, align: 'center', base: 'middle' });
+    text(ctx, line, 634, y + 6, { font: mono(500, 32), color: C.ink, base: 'middle' });
+    ctx.restore();
+  });
+  text(ctx, COPY.event, 960, 972, { font: mono(400, 22), color: C.dim, align: 'center', ls: '0.1em', alpha: E.out(span(lt, 3.0, 3.7)) });
+}
+
+// ---------- Timeline ----------
+const SCENES = [
+  { id: 'power', name: 'Power-on', start: 0, dur: 6, draw: s0 },
+  { id: 'worlds', name: 'Two worlds', start: 6, dur: 8, draw: s1 },
+  { id: 'birdhouse', name: 'Smart Birdhouse', start: 14, dur: 9, draw: s2 },
+  { id: 'rf', name: 'RF sensor', start: 23, dur: 9, draw: s3 },
+  { id: 'can', name: 'Smart Horticulture', start: 32, dur: 9, draw: s3b },
+  { id: 'toolkit', name: 'Toolkit', start: 41, dur: 7, draw: s4 },
+  { id: 'looking', name: 'Looking for', start: 48, dur: 6, draw: s5 },
+  { id: 'cta', name: 'Get in touch', start: 54, dur: 7, draw: s6, hold: true },
+];
+const DUR = 61, POSTER_T = 4.6;
+function sceneAt(t) { let s = SCENES[0]; for (const sc of SCENES) if (t >= sc.start) s = sc; return s; }
+function envelope(sc, lt) {
+  const fin = E.smooth(span(lt, 0, .5));
+  const fout = sc.hold ? 1 : E.smooth(span(sc.dur - lt, 0, .6));
+  return Math.min(fin, fout);
+}
+const off = document.createElement('canvas'); off.width = W; off.height = H; const octx = off.getContext('2d');
+function drawScan(g, t) {
+  for (let i = 1; i < SCENES.length; i++) {
+    const b = SCENES[i].start;
+    if (Math.abs(t - b) < .4) {
+      const p = E.inout((t - b + .4) / .8), x = W * p;
+      g.save(); g.globalAlpha = .9 * Math.sin(Math.PI * p);
+      const lg = g.createLinearGradient(x - 60, 0, x + 6, 0); lg.addColorStop(0, 'rgba(224,138,77,0)'); lg.addColorStop(1, 'rgba(224,138,77,0.5)');
+      g.fillStyle = lg; g.fillRect(x - 60, 0, 66, H);
+      g.fillStyle = C.copper; g.shadowColor = C.copper; g.shadowBlur = 24; g.fillRect(x, 0, 4, H);
+      g.restore();
+    }
+  }
+}
+function renderTo(g, t) {
+  g.drawImage(bgCache, 0, 0);
+  drawBgTraces(g, t);
+  const sc = sceneAt(t), lt = Math.min(t - sc.start, sc.dur);
+  octx.clearRect(0, 0, W, H); octx.save(); sc.draw(octx, lt); octx.restore();
+  const a = envelope(sc, lt), s = 1 + .03 * (lt / sc.dur);
+  g.save(); g.globalAlpha = a; g.translate(W / 2, H / 2); g.scale(s, s); g.drawImage(off, -W / 2, -H / 2); g.restore();
+  drawScan(g, t);
+  g.drawImage(vigCache, 0, 0);
+}
+
+// ---------- Player (portfolio embed) ----------
+const canvas = document.getElementById('reelCanvas'), ctx = canvas.getContext('2d');
+const scrub = document.getElementById('reelScrub'), timeLabel = document.getElementById('reelTime');
+const playBtn = document.getElementById('reelPlay'), bigplay = document.getElementById('reelBigPlay'), badge = document.getElementById('reelBadge');
+const strip = document.getElementById('reelScenes'), fsBtn = document.getElementById('reelFs'), stageWrap = document.getElementById('reelStage');
+const playPath = playBtn.querySelector('path'), playText = playBtn.querySelector('span'), bigPath = bigplay.querySelector('path');
+const PLAY_PATH = 'M7 4.5v15l13-7.5z', PAUSE_PATH = 'M6 5h4v14H6zm8 0h4v14h-4z', REPLAY_PATH = 'M12 5V2L7 7l5 5V8a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z';
+const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t = 0, playing = false, started = false, last = 0, ended = false, rafId = 0, userTouched = false, pausedByScroll = false;
+const fmt = s => { s = Math.max(0, Math.floor(s)); return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; };
+function render(tt) { renderTo(ctx, tt); }
+function updateUI() {
+  scrub.value = Math.round(t / DUR * 1000);
+  timeLabel.textContent = `${fmt(t)} / ${fmt(DUR)}`;
+  const sc = sceneAt(t);
+  strip.querySelectorAll('.reel-scene').forEach(el => el.classList.toggle('active', el.dataset.id === sc.id));
+  playPath.setAttribute('d', playing ? PAUSE_PATH : ended ? REPLAY_PATH : PLAY_PATH);
+  playText.textContent = playing ? 'Pause' : ended ? 'Replay' : 'Play';
+  bigPath.setAttribute('d', ended ? REPLAY_PATH : PLAY_PATH);
+  bigplay.setAttribute('aria-label', ended ? 'Replay' : 'Play');
+  bigplay.hidden = playing;
+  badge.textContent = playing ? sc.name.toUpperCase() : ended ? 'END · REPLAY' : started ? `PAUSED · ${sc.name.toUpperCase()}` : `${fmt(DUR)} · PITCH REEL`;
+}
+function loop(now) {
+  if (!playing) { rafId = 0; return; }
+  const dt = Math.min(.1, (now - last) / 1000); last = now; t += dt;
+  if (t >= DUR) { t = DUR; playing = false; ended = true; }
+  render(t); updateUI();
+  rafId = playing ? requestAnimationFrame(loop) : 0;
+}
+function play() { if (ended) { t = 0; ended = false; } started = true; playing = true; last = performance.now(); updateUI(); if (!rafId) rafId = requestAnimationFrame(loop); }
+function pause() { playing = false; updateUI(); }
+function toggle() { userTouched = true; pausedByScroll = false; playing ? pause() : play(); }
+function seek(tt) { userTouched = true; t = clamp(tt, 0, DUR); ended = t >= DUR; started = true; render(t); updateUI(); }
+
+SCENES.forEach(sc => {
+  const b = document.createElement('button'); b.className = 'reel-scene'; b.type = 'button'; b.dataset.id = sc.id;
+  b.innerHTML = `<b>${fmt(sc.start)}</b>${sc.name}`;
+  b.addEventListener('click', () => { if (playing) pause(); seek(sc.start + .01); play(); });
+  strip.appendChild(b);
+});
+playBtn.addEventListener('click', toggle);
+bigplay.addEventListener('click', toggle);
+canvas.addEventListener('click', toggle);
+scrub.addEventListener('input', () => { if (playing) pause(); seek(scrub.value / 1000 * DUR); });
+fsBtn.addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen(); else if (stageWrap.requestFullscreen) stageWrap.requestFullscreen(); });
+canvas.addEventListener('keydown', e => {
+  if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); toggle(); }
+  else if (e.code === 'ArrowRight') { e.preventDefault(); seek(t + 2); }
+  else if (e.code === 'ArrowLeft') { e.preventDefault(); seek(t - 2); }
+  else if (e.code === 'Home') { e.preventDefault(); seek(0); }
+});
+
+// Start once when scrolled into view (the reel has no audio track); pause when scrolled away.
+if ('IntersectionObserver' in window && !reduceMotion) {
+  let autoStarted = false;
+  new IntersectionObserver(entries => {
+    for (const e of entries) {
+      if (e.isIntersecting && e.intersectionRatio >= .6) {
+        if (!autoStarted && !userTouched && !started) { autoStarted = true; play(); }
+        else if (pausedByScroll) { pausedByScroll = false; play(); }
+      } else if (e.intersectionRatio < .2 && playing) { pause(); pausedByScroll = true; }
+    }
+  }, { threshold: [0, .2, .6] }).observe(stageWrap);
+}
+
+// Fonts, then poster frame.
+const wanted = [mono(600, 116), mono(500, 24), mono(400, 18), sans(400, 34), sans(500, 50), sans(500, 64)];
+const fontsReady = Promise.race([Promise.all(wanted.map(f => document.fonts.load(f))).catch(() => null), new Promise(r => setTimeout(r, 2500))]);
+function poster() { if (!playing) render(started ? t : POSTER_T); }
+render(POSTER_T);
+fontsReady.then(poster);
+document.fonts.ready.then(poster);
+updateUI();
+})();
+</script>
 
 </body>
 </html>
